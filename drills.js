@@ -38,53 +38,58 @@ function fillTree(arr, bst) {
 
 fillTree(treeData, BST);
 
-function preOrder(bst) {
+function preOrder(bst, preOrderArray = []) {
   let node = bst;
   //node handled first
-  console.log(node.key);
+//   console.log(node.key);
+  preOrderArray.push(node.key)
   //then left
   if (node.left) {
-    preOrder(node.left);
+    preOrder(node.left, preOrderArray);
   }
   //then right
   if (node.right) {
-    preOrder(node.right);
+    preOrder(node.right, preOrderArray);
   }
+  return preOrderArray;
 }
 console.log("Pre-order");
-preOrder(BST);
+console.log(preOrder(BST));
 
-function postOrder(bst) {
+function inOrder(bst, inOrderArray = []) {
+    let node = bst;
+    //left branch is visited
+    if (node.left) {
+      inOrder(node.left, inOrderArray)
+    }
+    //then node itself
+    inOrderArray.push(node.key)
+    //then right branch
+    if (node.right) {
+      postOrder(node.right, inOrderArray)
+    }
+    return inOrderArray
+  }
+  console.log("In-Order");
+  console.log(inOrder(BST));
+
+function postOrder(bst, postOrderArray = []) {
   let node = bst;
   //left branch first
   if (node.left) {
-    postOrder(node.left);
+    postOrder(node.left, postOrderArray);
   }
   //then right branch
   if (node.right) {
-    postOrder(node.right);
+    postOrder(node.right, postOrderArray);
   }
   //node handled after the branches
-  console.log(node.key);
+//   console.log(node.key);
+  postOrderArray.push(node.key)
+  return postOrderArray
 }
 console.log("Post-order");
-postOrder(BST);
-
-function inOrder(bst) {
-  let node = bst;
-  //left branch is visited
-  if (node.left) {
-    inOrder(node.left);
-  }
-  //then node itself
-  console.log(node.key);
-  //then right branch
-  if (node.right) {
-    postOrder(node.right);
-  }
-}
-console.log("In-Order");
-inOrder(BST);
+console.log(postOrder(BST));
 
 // STAR TREK NEXT COMMANDING OFFICER
 const CommanderTree = new BinarySearchTree();
